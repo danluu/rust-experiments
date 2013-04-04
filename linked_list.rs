@@ -38,8 +38,8 @@ fn insert_after(x: @mut Node, y: @mut Node){
 fn insert_before(x: @mut Node, y: @mut Node){
     match x.prev {
         SomeNode(xp) => {
-            xp.next = SomeNode(y);
             x.prev = SomeNode(y);
+            xp.next = SomeNode(y);
             y.prev = SomeNode(xp);
             y.next = SomeNode(x)
         }
@@ -50,15 +50,24 @@ fn insert_before(x: @mut Node, y: @mut Node){
     }
 }
 
-fn insert_balanced(x: @mut Node){
-    match x.next {
-        SomeNode(xn) => {
-            
+fn insert_balanced_helper(list: MaybeNode, x: @mut Node, prev: MaybeNode){
+    match list {
+        SomeNode(n) => {
+            if (x.data < n.data) {
+                insert_before(n, x);
+            } else {
+                insert_balanced_helper(n.next, x, list);
+            }
         }
-        NoNode => {
-
+        NoNode => match prev {
+            SomeNode(n) => insert_after(n, x),
+            NoNode => println("FIXME: can't insert into empty list")
         }
     }
+}
+
+fn insert_balanced(list: MaybeNode, x: @mut Node){
+    insert_balanced_helper(list, x, NoNode);
 }
 
 fn main() {
@@ -73,7 +82,14 @@ fn main() {
     insert_after(node200, node250);
     insert_before(node200, node150);
 
-    print_nodes(node100);
+    let node75 =  @mut Node { next: NoNode, prev: NoNode, data: 75 };
+    let node125 =  @mut Node { next: NoNode, prev: NoNode, data: 125 };
+    let node325 =  @mut Node { next: NoNode, prev: NoNode, data: 325 };
+    insert_balanced(SomeNode(node100), node75);
+    insert_balanced(SomeNode(node75), node125);
+    insert_balanced(SomeNode(node75), node325);
+
+    print_nodes(node75);
 }
 
 
