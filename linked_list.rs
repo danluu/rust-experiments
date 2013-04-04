@@ -35,15 +35,16 @@ fn insert_after(x: @mut Node, y: @mut Node){
 }
 
 fn main() {
-    let node1 = @mut Node { next: NoNode, prev: NoNode, data: 1 };
-    let node2 = @mut Node { next: NoNode, prev: NoNode, data: 2 };
-    let node3 = @mut Node { next: NoNode, prev: NoNode, data: 3 };
+    let node100 = @mut Node { next: NoNode, prev: NoNode, data: 100 };
+    let node200 = @mut Node { next: NoNode, prev: NoNode, data: 200 };
+    let node250 = @mut Node { next: NoNode, prev: NoNode, data: 250 };
+    let node300 = @mut Node { next: NoNode, prev: NoNode, data: 300 };
 
-    insert_after(node1, node2);
-    insert_after(node2, node3);
+    insert_after(node100, node200);
+    insert_after(node200, node300);
+    insert_after(node200, node250);
 
-
-    print_nodes(node1);
+    print_nodes(node100);
 }
 
 
