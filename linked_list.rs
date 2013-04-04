@@ -1,12 +1,21 @@
-struct Node<T> {
-    next: MaybeNode<T>,
-    prev: MaybeNode<T>,
-    data: T
+struct Node {
+    next: MaybeNode,
+    prev: MaybeNode,
+    data: int
 }
 
-enum MaybeNode<T> {
-    SomeNode(@mut Node<T>),
+enum MaybeNode {
+    SomeNode(@mut Node),
     NoNode
+}
+
+fn print_nodes(x: @mut Node){
+    println(fmt!("%d", x.data));
+    match x.next {
+        NoNode => println("Done!"),
+        SomeNode(n) => print_nodes(n)
+    }
+    
 }
 
 fn main() {
@@ -16,7 +25,8 @@ fn main() {
 
     node1.next = SomeNode(node2);
     node2.next = SomeNode(node3);
-    node3.next = SomeNode(node1);
+
+    print_nodes(node1);
 }
 
 
