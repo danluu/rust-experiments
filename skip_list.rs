@@ -78,12 +78,22 @@ fn main() {
     let rng = rand::Rng();
     println(fmt!("%f",rng.gen_float()));
   
+    let mut max_height = 0;
+    let mut top = NoNode;
 
-    let head = @mut Node { right: NoNode, left: NoNode, up: NoNode, down: NoNode, data: int::min_value };
-    let node1000 = @mut Node { right: NoNode, left: SomeNode(head), up: NoNode, down: NoNode, data: 1000 };
-    head.right = SomeNode(node1000);
+    let head0 = @mut Node { right: NoNode, left: NoNode, up: NoNode, down: NoNode, data: int::min_value };
+    let node1000 = @mut Node { right: NoNode, left: SomeNode(head0), up: NoNode, down: NoNode, data: 1000 };
+    head0.right = SomeNode(node1000);
+    top = SomeNode(head0);
+    
 
-    print_nodes(head);
+    print_nodes(head0);
+
+
+    match top {
+        NoNode => println("Empty top"),
+        SomeNode(n) => print_nodes(n)
+    }
   
 /*
     let node150 = @mut Node { right: NoNode, left: NoNode, data: 150 };
