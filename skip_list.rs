@@ -76,12 +76,16 @@ fn insert_balanced(list: MaybeNode, x: @mut Node){
 
 fn main() {
     let rng = rand::Rng();
-    loop {
-        println(fmt!("%f",rng.gen_float()))
-    }
-    
+    println(fmt!("%f",rng.gen_float()));
+  
+
+    let head = @mut Node { right: NoNode, left: NoNode, up: NoNode, down: NoNode, data: int::min_value };
+    let node1000 = @mut Node { right: NoNode, left: SomeNode(head), up: NoNode, down: NoNode, data: 1000 };
+    head.right = SomeNode(node1000);
+
+    print_nodes(head);
+  
 /*
-    let node100 = @mut Node { right: NoNode, left: NoNode, data: 100 };
     let node150 = @mut Node { right: NoNode, left: NoNode, data: 150 };
     let node200 = @mut Node { right: NoNode, left: NoNode, data: 200 };
     let node250 = @mut Node { right: NoNode, left: NoNode, data: 250 };
