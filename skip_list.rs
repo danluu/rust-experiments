@@ -1,3 +1,5 @@
+use core::rand::RngUtil;
+
 struct Node {
     left: MaybeNode,
     right: MaybeNode,
@@ -73,6 +75,12 @@ fn insert_balanced(list: MaybeNode, x: @mut Node){
 }
 
 fn main() {
+    let rng = rand::Rng();
+    loop {
+        println(fmt!("%f",rng.gen_float()))
+    }
+    
+/*
     let node100 = @mut Node { right: NoNode, left: NoNode, data: 100 };
     let node150 = @mut Node { right: NoNode, left: NoNode, data: 150 };
     let node200 = @mut Node { right: NoNode, left: NoNode, data: 200 };
@@ -92,4 +100,5 @@ fn main() {
     insert_balanced(SomeNode(node75), node325);
 
     print_nodes(node75);
+*/
 }
