@@ -86,15 +86,13 @@ fn main() {
     head0.right = SomeNode(node1000);
     top = SomeNode(head0);
     
-
     print_nodes(head0);
-
 
     match top {
         NoNode => println("Empty top"),
         SomeNode(n) => print_nodes(n)
     }
-  
+
 /*
     let node150 = @mut Node { right: NoNode, left: NoNode, data: 150 };
     let node200 = @mut Node { right: NoNode, left: NoNode, data: 200 };
@@ -115,4 +113,29 @@ fn main() {
 
     print_nodes(node75);
 */
+}
+
+#[test]
+fn search_simple() {
+    let mut max_height = 0;
+    let mut top = NoNode;
+
+    let head0 = @mut Node { right: NoNode, left: NoNode, up: NoNode, down: NoNode, data: int::min_value };
+    let head1 = @mut Node { right: NoNode, left: NoNode, up: NoNode, down: SomeNode(head0), data: int::min_value };
+    let head2 = @mut Node { right: NoNode, left: NoNode, up: NoNode, down: SomeNode(head1), data: int::min_value };
+    head0.up = SomeNode(head1);
+    head1.up = SomeNode(head2);
+    top = SomeNode(head2);
+
+    let node1000 = @mut Node { right: NoNode, left: SomeNode(head0), up: NoNode, down: NoNode, data: 1000 };
+    head0.right = SomeNode(node1000);
+
+    let node2000 = @mut Node { right: NoNode, left: SomeNode(node1000), up: NoNode, down: NoNode, data: 1000 };
+    let node2000u = @mut Node { right: NoNode, left: SomeNode(head1), up: NoNode, down: NoNode, data: 1000 };
+    let node2000uu = @mut Node { right: NoNode, left: SomeNode(head2), up: NoNode, down: NoNode, data: 1000 };
+    head1.right = SomeNode(node2000u);
+    head2.right = SomeNode(node2000uu);
+
+    let node3000 = @mut Node { right: NoNode, left: SomeNode(node2000), up: NoNode, down: NoNode, data: 1000 };
+    node2000.right = SomeNode(node3000);
 }
