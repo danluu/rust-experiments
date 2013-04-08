@@ -115,16 +115,20 @@ fn main() {
 */
 }
 
-fn find(k: int, n: @mut Node) {
-    fn find_down(k: int, n: @mut Node) {
+fn find(k: int, n: @mut Node) -> MaybeNode {
+    fn find_down(k: int, n: @mut Node) -> MaybeNode {
         match n.down {
-            NoNode => println(fmt!("Failed search at %d", n.data)),
+            NoNode => {
+                println(fmt!("Failed search at %d", n.data));
+                return NoNode
+            },
             SomeNode(m) => find(k, m)
         }
     }
 
     if(n.data == k) {
         println(fmt!("Found it! %d", n.data));
+        return SomeNode(n)
     } else {
         println(fmt!("Looking for %d at %d", k, n.data));
     }
