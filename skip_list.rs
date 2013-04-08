@@ -179,4 +179,7 @@ fn search_simple() {
     find(2000, top);
     println("---Find 1000");
     find(1000, top);
+    println("---Find 3000");
+    find(3000, top);
+
 }
