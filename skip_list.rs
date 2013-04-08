@@ -80,39 +80,6 @@ fn main() {
   
     let mut max_height = 0;
     let mut top = NoNode;
-
-    let head0 = @mut Node { right: NoNode, left: NoNode, up: NoNode, down: NoNode, data: int::min_value };
-    let node1000 = @mut Node { right: NoNode, left: SomeNode(head0), up: NoNode, down: NoNode, data: 1000 };
-    head0.right = SomeNode(node1000);
-    top = SomeNode(head0);
-    
-    print_nodes(head0);
-
-    match top {
-        NoNode => println("Empty top"),
-        SomeNode(n) => print_nodes(n)
-    }
-
-/*
-    let node150 = @mut Node { right: NoNode, left: NoNode, data: 150 };
-    let node200 = @mut Node { right: NoNode, left: NoNode, data: 200 };
-    let node250 = @mut Node { right: NoNode, left: NoNode, data: 250 };
-    let node300 = @mut Node { right: NoNode, left: NoNode, data: 300 };
-
-    insert_after(node100, node200);
-    insert_after(node200, node300);
-    insert_after(node200, node250);
-    insert_before(node200, node150);
-
-    let node75 =  @mut Node { right: NoNode, left: NoNode, data: 75 };
-    let node125 =  @mut Node { right: NoNode, left: NoNode, data: 125 };
-    let node325 =  @mut Node { right: NoNode, left: NoNode, data: 325 };
-    insert_balanced(SomeNode(node100), node75);
-    insert_balanced(SomeNode(node75), node125);
-    insert_balanced(SomeNode(node75), node325);
-
-    print_nodes(node75);
-*/
 }
 
 fn find(k: int, n: @mut Node) -> MaybeNode {
