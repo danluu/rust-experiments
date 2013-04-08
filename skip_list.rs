@@ -163,10 +163,12 @@ fn search_simple() {
     head0.right = SomeNode(node1000);
 
     let node2000 = @mut Node { right: NoNode, left: SomeNode(node1000), up: NoNode, down: NoNode, data: 2000 };
-    let node2000u = @mut Node { right: NoNode, left: SomeNode(head1), up: NoNode, down: NoNode, data: 2000 };
-    let node2000uu = @mut Node { right: NoNode, left: SomeNode(head2), up: NoNode, down: NoNode, data: 2000 };
+    let node2000u = @mut Node { right: NoNode, left: SomeNode(head1), up: NoNode, down: SomeNode(node2000), data: 2000 };
+    let node2000uu = @mut Node { right: NoNode, left: SomeNode(head2), up: NoNode, down: SomeNode(node2000u), data: 2000 };
     head1.right = SomeNode(node2000u);
     head2.right = SomeNode(node2000uu);
+    node2000.up = SomeNode(node2000u);
+    node2000u.up = SomeNode(node2000uu);
 
     let node3000 = @mut Node { right: NoNode, left: SomeNode(node2000), up: NoNode, down: NoNode, data: 3000 };
     node2000.right = SomeNode(node3000);
