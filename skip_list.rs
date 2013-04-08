@@ -125,6 +125,8 @@ fn find(k: int, n: @mut Node) {
 
     if(n.data == k) {
         println(fmt!("Found it! %d", n.data));
+    } else {
+        println(fmt!("Looking for %d at %d", k, n.data));
     }
 
     // Look right. If >=, must be at least in that column. Otherwise, go down one level and try again.
@@ -134,13 +136,14 @@ fn find(k: int, n: @mut Node) {
             println(fmt!("No right node at %d", n.data));
             find_down(k,n)
         },
-        SomeNode(m) =>
-        if (k >= m.data) {
-            println(fmt!(">= right node at %d", n.data));
-            find(k, m)
-        } else {
-            println(fmt!("< right node at %d", n.data));
-            find_down(k,m)
+        SomeNode(m) => {
+            if (k >= m.data) {
+                println(fmt!("Move right: >= right node (%d) at %d", m.data, n.data));
+                find(k, m)
+            } else {
+                println(fmt!("Move down: < right node (%d) at %d", m.data, n.data));
+                find_down(k,n)
+            }
         }
     }
 }
@@ -168,7 +171,10 @@ fn search_simple() {
     let node3000 = @mut Node { right: NoNode, left: SomeNode(node2000), up: NoNode, down: NoNode, data: 3000 };
     node2000.right = SomeNode(node3000);
 
+    println("---Find head");
     find(int::min_value, top);
-    find(1000, top);
+    println("---Find 2000");
+    find(2000, top);
+    println("---Find 1000");
     find(1000, top);
 }
