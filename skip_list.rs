@@ -140,6 +140,7 @@ fn search_simple() {
     let node2000 = @mut Node { right: NoNode, left: SomeNode(node1000), up: NoNode, down: NoNode, data: 2000 };
     let node2000u = @mut Node { right: NoNode, left: SomeNode(head1), up: NoNode, down: SomeNode(node2000), data: 2000 };
     let node2000uu = @mut Node { right: NoNode, left: SomeNode(head2), up: NoNode, down: SomeNode(node2000u), data: 2000 };
+    node1000.right = SomeNode(node2000);
     head1.right = SomeNode(node2000u);
     head2.right = SomeNode(node2000uu);
     node2000.up = SomeNode(node2000u);
@@ -173,10 +174,10 @@ fn search_simple() {
     find(3000, top);
     println("---Find 2500");
     find(2500, top);
-    println("---insert 2250");
-    insert(2250, top);
-    println("---find 2250");
-    find(2250, top);
+    println("---insert 2750");
+    insert(2750, top);
+    println("---find 2750");
+    find(2750, top);
     println("---display nodes: top");
     print_nodes(top);
     println("---display nodes: bottom");
