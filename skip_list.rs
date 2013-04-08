@@ -64,26 +64,6 @@ fn insert_before(x: @mut Node, y: @mut Node){
     }
 }
 
-fn insert_balanced_helper(list: MaybeNode, x: @mut Node, left: MaybeNode){
-    match list {
-        SomeNode(n) => {
-            if (x.data < n.data) {
-                insert_before(n, x);
-            } else {
-                insert_balanced_helper(n.right, x, list);
-            }
-        }
-        NoNode => match left {
-            SomeNode(n) => insert_after(n, x),
-            NoNode => println("FIXME: can't insert into empty list")
-        }
-    }
-}
-
-fn insert_balanced(list: MaybeNode, x: @mut Node){
-    insert_balanced_helper(list, x, NoNode);
-}
-
 fn main() {
     let rng = rand::Rng();
     println(fmt!("%f",rng.gen_float()));
