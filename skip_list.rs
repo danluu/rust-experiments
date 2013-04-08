@@ -167,5 +167,7 @@ fn search_simple() {
     find(1000, top);
     println("---Find 3000");
     find(3000, top);
+    println("---Find 2500");
+    find(2500, top);
 
 }
