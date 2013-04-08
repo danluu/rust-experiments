@@ -177,5 +177,9 @@ fn search_simple() {
     insert(2250, top);
     println("---find 2250");
     find(2250, top);
+    println("---display nodes: top");
+    print_nodes(top);
+    println("---display nodes: bottom");
+    print_nodes(head0);
 
 }
