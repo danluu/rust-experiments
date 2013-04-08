@@ -22,14 +22,24 @@ fn print_nodes(x: @mut Node){
     
 }
 
+// insert a node into the skip list
+// FIXME: currently doesn't do balanced insert
+fn insert(data: int, top: @mut Node) {
+    let y = @mut Node { right: NoNode, left: NoNode, up: NoNode, down: NoNode, data: data };
+    let smaller_node = find_insert(y.data, top);
+    insert_after(smaller_node, y)
+}
+
 // insert node y after node x
-fn insert_after(x: @mut Node, y: @mut Node){
+fn insert_after(x: @mut Node, y: @mut Node) {
     match x.right {
         SomeNode(xn) => {
             xn.left = SomeNode(y);
             x.right = SomeNode(y);
             y.left = SomeNode(x);
             y.right = SomeNode(xn);
+            y.down = NoNode;
+            y.up = NoNode
         }
         NoNode => {
             x.right = SomeNode(y);
@@ -82,20 +92,23 @@ fn main() {
     let mut top = NoNode;
 }
 
-fn find(k: int, n: @mut Node) -> MaybeNode {
-    fn find_down(k: int, n: @mut Node) -> MaybeNode {
+// We have two find functions. The standard find function returns a node if it exists
+// Find for insert returns a node regardless, because we want a reference to insert into
+
+fn find_insert(k: int, n: @mut Node) -> @mut Node {
+    fn find_down(k: int, n: @mut Node) -> @mut Node {
         match n.down {
             NoNode => {
                 println(fmt!("Failed search at %d", n.data));
-                return NoNode
+                return n
             },
-            SomeNode(m) => find(k, m)
+            SomeNode(m) => find_insert(k, m)
         }
     }
 
     if(n.data == k) {
         println(fmt!("Found it! %d", n.data));
-        return SomeNode(n)
+        return n
     } else {
         println(fmt!("Looking for %d at %d", k, n.data));
     }
@@ -110,12 +123,23 @@ fn find(k: int, n: @mut Node) -> MaybeNode {
         SomeNode(m) => {
             if (k >= m.data) {
                 println(fmt!("Move right: >= right node (%d) at %d", m.data, n.data));
-                find(k, m)
+                find_insert(k, m)
             } else {
                 println(fmt!("Move down: < right node (%d) at %d", m.data, n.data));
                 find_down(k,n)
             }
         }
+    }
+}
+
+fn find(k: int, n: @mut Node) -> MaybeNode {
+    let res = find_insert(k, n);
+    if (res.data == k) {
+        println(fmt!("DEBUG: returning a node %d\n", res.data));
+        return SomeNode(res);
+    } else {
+        println("DEBUG: returning NoNode\n");
+        return NoNode;
     }
 }
 
@@ -169,5 +193,9 @@ fn search_simple() {
     find(3000, top);
     println("---Find 2500");
     find(2500, top);
+    println("---insert 2250");
+    insert(2250, top);
+    println("---find 2250");
+    find(2250, top);
 
 }
