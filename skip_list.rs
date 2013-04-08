@@ -133,7 +133,7 @@ fn find(k: int, n: @mut Node) {
     // If we get to the bottom and can't find anything, we must have failed to find the correct value
     match n.right {
         NoNode => {
-            println(fmt!("No right node at %d", n.data));
+            println(fmt!("Move down: No right node at %d", n.data));
             find_down(k,n)
         },
         SomeNode(m) => {
