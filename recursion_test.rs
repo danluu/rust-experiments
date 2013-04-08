@@ -1,11 +1,12 @@
-fn f(){
-    fn g() {
-        println("g");
+fn f(i: int) {
+    fn g(i: int) {
+        println(fmt!("g %d",i));
+        f(i);
     }
     println("f");
-    g();
+    g(i+1);
 }
 
 fn main() {
-    f();
+    f(0);
 }

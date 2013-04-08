@@ -115,27 +115,60 @@ fn main() {
 */
 }
 
+fn find(k: int, n: @mut Node) {
+    fn find_down(k: int, n: @mut Node) {
+        match n.down {
+            NoNode => println(fmt!("Failed search at %d", n.data)),
+            SomeNode(m) => find(k, m)
+        }
+    }
+
+    if(n.data == k) {
+        println(fmt!("Found it! %d", n.data));
+    }
+
+    // Look right. If >=, must be at least in that column. Otherwise, go down one level and try again.
+    // If we get to the bottom and can't find anything, we must have failed to find the correct value
+    match n.right {
+        NoNode => {
+            println(fmt!("No right node at %d", n.data));
+            find_down(k,n)
+        },
+        SomeNode(m) =>
+        if (k >= m.data) {
+            println(fmt!(">= right node at %d", n.data));
+            find(k, m)
+        } else {
+            println(fmt!("< right node at %d", n.data));
+            find_down(k,m)
+        }
+    }
+}
+
 #[test]
 fn search_simple() {
     let mut max_height = 0;
-    let mut top = NoNode;
 
     let head0 = @mut Node { right: NoNode, left: NoNode, up: NoNode, down: NoNode, data: int::min_value };
     let head1 = @mut Node { right: NoNode, left: NoNode, up: NoNode, down: SomeNode(head0), data: int::min_value };
     let head2 = @mut Node { right: NoNode, left: NoNode, up: NoNode, down: SomeNode(head1), data: int::min_value };
     head0.up = SomeNode(head1);
     head1.up = SomeNode(head2);
-    top = SomeNode(head2);
+    let mut top = head2;
 
     let node1000 = @mut Node { right: NoNode, left: SomeNode(head0), up: NoNode, down: NoNode, data: 1000 };
     head0.right = SomeNode(node1000);
 
-    let node2000 = @mut Node { right: NoNode, left: SomeNode(node1000), up: NoNode, down: NoNode, data: 1000 };
-    let node2000u = @mut Node { right: NoNode, left: SomeNode(head1), up: NoNode, down: NoNode, data: 1000 };
-    let node2000uu = @mut Node { right: NoNode, left: SomeNode(head2), up: NoNode, down: NoNode, data: 1000 };
+    let node2000 = @mut Node { right: NoNode, left: SomeNode(node1000), up: NoNode, down: NoNode, data: 2000 };
+    let node2000u = @mut Node { right: NoNode, left: SomeNode(head1), up: NoNode, down: NoNode, data: 2000 };
+    let node2000uu = @mut Node { right: NoNode, left: SomeNode(head2), up: NoNode, down: NoNode, data: 2000 };
     head1.right = SomeNode(node2000u);
     head2.right = SomeNode(node2000uu);
 
-    let node3000 = @mut Node { right: NoNode, left: SomeNode(node2000), up: NoNode, down: NoNode, data: 1000 };
+    let node3000 = @mut Node { right: NoNode, left: SomeNode(node2000), up: NoNode, down: NoNode, data: 3000 };
     node2000.right = SomeNode(node3000);
+
+    find(int::min_value, top);
+    find(1000, top);
+    find(1000, top);
 }
