@@ -181,6 +181,12 @@ fn search_simple() {
     find(int::min_value, top);
     println("---Find 2000");
     find(2000, top);
+//    assert!(find(2000, top) == SomeNode(node2000uu)); //FIXME: when I have internet access, figure out why this is illegal and how to fix it
+    /* also doesn't work
+    match find(2000, top) {
+        NoNode => assert!(false),
+        SomeNode(n) => assert!(&n == &node2000uu)
+    }*/
     println("---Find 1000");
     find(1000, top);
     println("---Find 3000");
