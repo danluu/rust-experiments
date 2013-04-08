@@ -154,6 +154,15 @@ fn search_simple() {
         NoNode => assert!(false),
         SomeNode(n) => assert!(&n == &node2000uu)
     }*/
+    /*
+    match find(2000, top) {
+        NoNode => assert!(false),
+        SomeNode(n) => {
+            let an = &n;
+            let a2000uu = &node2000uu;
+            assert!(an == a2000uu);
+        }
+    }*/
     println("---Find 1000");
     find(1000, top);
     println("---Find 3000");
