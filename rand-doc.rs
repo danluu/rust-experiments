@@ -10,7 +10,9 @@ fn main() {
     println(fmt!("%?",rng.gen_bytes(8))); 
     println(fmt!("%d",rng.choose([1,2,4,8,16,32]))); 
 
-    let x = [rand::Weighted {weight: 4, item: 'a'}, rand::Weighted {weight: 2, item: 'b'}, rand::Weighted {weight: 2, item: 'c'}];
+    let x = [rand::Weighted {weight: 4, item: 'a'}, 
+             rand::Weighted {weight: 2, item: 'b'}, 
+             rand::Weighted {weight: 2, item: 'c'}];
     println(fmt!("%c",rng.choose_weighted(x)));
 
     println(fmt!("%?",rng.choose_weighted_option(x)));
